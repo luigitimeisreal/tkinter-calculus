@@ -1,14 +1,8 @@
 from tkinter import Tk, Label, Button
-
-
-
+from calculate import calculate
 
 def press(button_text: str):
     print(button_text)
-
-
-def calculate():
-    print("Calculation in process. . .")
 
 
 # Define the window
@@ -16,6 +10,10 @@ window = Tk()
 window.title("Tkinter Advanced Calculator")
 window.geometry("500x650")
 window.resizable(False, False)
+
+# Define equation
+equation = "0"
+print(equation)
 
 # Widgets
 title = Label(window, text="Tkinter Calculus Calculator", font=("Arial", 25))
@@ -57,13 +55,13 @@ plus.grid(column=0, row=5)
 minus = Button(window, text="-", font=("Arial", 25), command=lambda: press("-"))
 minus.grid(column=1, row=5)
 
-by = Button(window, text="·", font=("Arial", 25), command=lambda: press("·"))
+by = Button(window, text="*", font=("Arial", 25), command=lambda: press("*"))
 by.grid(column=2, row=5)
 
 divide = Button(window, text="/", font=("Arial", 25), command=lambda: press("/"))
 divide.grid(column=0, row=6)
 
-power = Button(window, text="^", font=("Arial", 25), command=lambda: press("^"))
+power = Button(window, text="^", font=("Arial", 25), command=lambda: press("**"))
 power.grid(column=1, row=6)
 
 sqrt = Button(window, text="√", font=("Arial", 25), command=lambda: press("√"))
@@ -84,8 +82,11 @@ zero.grid(column=0, row=8)
 floating = Button(window, text=".", font=("Arial", 25), command=lambda: press("."))
 floating.grid(column=1, row=8)
 
-calculate_result = Button(window, text="Calc", font=("Arial", 22), command=calculate)
-calculate_result.grid(row=8, column=2)
+variable = Button(window, text="x", font=("Arial", 25), command=lambda: press("x"))
+variable.grid(column=2, row=8)
+
+calculate_result = Button(window, text="Calculate!", font=("Arial", 22), command=calculate)
+calculate_result.grid(row=9, column=1)
 
 # Main loop (displays the program all the time)
 window.mainloop()
