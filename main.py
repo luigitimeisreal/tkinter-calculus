@@ -1,5 +1,20 @@
 from tkinter import Tk, Label, Button
-from calculate import calculate
+from sympy import Symbol, diff, sympify
+
+def calculate(expression):
+    try:
+        x = Symbol("x")
+        try:
+            result = diff(sympify(expression))
+        except Exception:
+            print("The expression can't be blank")
+    except Exception as SyntaxErrorException:
+        error = Label(window, )
+        print(f"An error occured while reading the expression { expression } "
+              f"or calculating the derivative. "
+              f"Make sure your expression is correct.")
+        print(SyntaxErrorException)
+
 
 def press(button_text: str):
     print(button_text)
@@ -7,12 +22,12 @@ def press(button_text: str):
 
 # Define the window
 window = Tk()
-window.title("Tkinter Advanced Calculator")
+window.title("Tkinter Calculus Calculator")
 window.geometry("500x650")
 window.resizable(False, False)
 
 # Define equation
-equation = "0"
+equation = ""
 print(equation)
 
 # Widgets
@@ -85,7 +100,7 @@ floating.grid(column=1, row=8)
 variable = Button(window, text="x", font=("Arial", 25), command=lambda: press("x"))
 variable.grid(column=2, row=8)
 
-calculate_result = Button(window, text="Calculate!", font=("Arial", 22), command=calculate)
+calculate_result = Button(window, text="Calculate!", font=("Arial", 22), command=lambda: calculate(equation))
 calculate_result.grid(row=9, column=1)
 
 # Main loop (displays the program all the time)
