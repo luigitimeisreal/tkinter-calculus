@@ -1,15 +1,16 @@
 from tkinter import Tk, Label, Button
 from sympy import Symbol, diff, sympify
 
-def calculate(expression):
+
+def calculate(expression="0"):
     try:
         x = Symbol("x")
-        try:
-            result = diff(sympify(expression))
-        except Exception:
-            print("The expression can't be blank")
+        result = diff(sympify(expression))
+        print_result = Label(window, text=f"{ result }", font=("Arial", 14))
+        print_result.grid(row=11)
     except Exception as SyntaxErrorException:
-        error = Label(window, )
+        error = Label(window, text="An error occured, is your expression correct?")
+        error.grid(row=10, columnspan=2)
         print(f"An error occured while reading the expression { expression } "
               f"or calculating the derivative. "
               f"Make sure your expression is correct.")
@@ -17,13 +18,19 @@ def calculate(expression):
 
 
 def press(button_text: str):
-    print(button_text)
+    global equation
+    if button_text == "D":
+        equation = equation[:-1]
+    else:
+        equation += button_text
+    display_equation = Label(window, text=f"{ equation }", font=("Arial", 14))
+    display_equation.grid(row=10)
 
 
 # Define the window
 window = Tk()
 window.title("Tkinter Calculus Calculator")
-window.geometry("500x650")
+window.geometry("500x700")
 window.resizable(False, False)
 
 # Define equation
@@ -94,7 +101,7 @@ parenthesis2.grid(column=2, row=7)
 zero = Button(window, text="0", font=("Arial", 25), command=lambda: press("0"))
 zero.grid(column=0, row=8)
 
-floating = Button(window, text=".", font=("Arial", 25), command=lambda: press("."))
+floating = Button(window, text="DEL", font=("Arial", 25), command=lambda: press("D"))
 floating.grid(column=1, row=8)
 
 variable = Button(window, text="x", font=("Arial", 25), command=lambda: press("x"))
