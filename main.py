@@ -1,5 +1,6 @@
 from tkinter import Tk, Label, Button
 from sympy import Symbol, diff, sympify
+from math import pi
 
 
 def calculate(expression="0"):
@@ -89,7 +90,7 @@ power.grid(column=1, row=6)
 sqrt = Button(window, text="√", font=("Arial", 25), command=lambda: press("√"))
 sqrt.grid(column=2, row=6)
 
-phi = Button(window, text="π", font=("Arial", 25), command=lambda: press("π"))
+phi = Button(window, text="π", font=("Arial", 25), command=lambda: press("pi"))
 phi.grid(column=0, row=7)
 
 parenthesis1 = Button(window, text="(", font=("Arial", 25), command=lambda: press("("))
