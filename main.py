@@ -1,12 +1,25 @@
 from tkinter import Tk, Label, Button
-from sympy import Symbol, diff, sympify
+from sympy import Symbol, diff, sympify, integrate
 from math import pi
+
+
+def change():
+    global is_derivative, info_mode
+    is_derivative = not is_derivative
+    if is_derivative:
+        info_mode = "Derivative"
+    else:
+        info_mode = "Integrate"
 
 
 def calculate(expression="0"):
     try:
+        global is_derivative
         x = Symbol("x")
-        result = diff(sympify(expression))
+        if is_derivative:
+            result = diff(sympify(expression))
+        else:
+            result = integrate(sympify(expression))
         print_result = Label(window, text=f"{ result }", font=("Arial", 14))
         print_result.grid(row=11)
     except Exception as SyntaxErrorException:
@@ -32,11 +45,14 @@ def press(button_text: str):
 window = Tk()
 window.title("Tkinter Calculus Calculator")
 window.geometry("500x700")
-window.resizable(False, False)
+# window.resizable(False, False)
 
 # Define equation
 equation = ""
-print(equation)
+
+# Define mode
+is_derivative = True
+info_mode = "Derivative"
 
 # Widgets
 title = Label(window, text="Tkinter Calculus Calculator", font=("Arial", 25))
@@ -108,8 +124,14 @@ floating.grid(column=1, row=8)
 variable = Button(window, text="x", font=("Arial", 25), command=lambda: press("x"))
 variable.grid(column=2, row=8)
 
-calculate_result = Button(window, text="Calculate!", font=("Arial", 22), command=lambda: calculate(equation))
-calculate_result.grid(row=9, column=1)
+calculate_result = Button(window, text="Calculate!", font=("Arial", 20), command=lambda: calculate(equation))
+calculate_result.grid(row=9, column=0)
+
+mode = Button(window, text="Change mode", font=("Arial", 20), command=change)
+mode.grid(row=9, column=1)
+
+current_mode = Label(window, textvariable=info_mode, font=("Arial", 20))
+current_mode.grid(row=9, column=2)
 
 # Main loop (displays the program all the time)
 window.mainloop()
